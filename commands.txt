@@ -1,0 +1,7 @@
+
+npm install web3@0.20.5
+node .\compile.js hello_world.sol hello_world
+geth --identity “LocalTestNode” --rpc --rpcport 8080 --rpccorsdoma
+in “*” --datadir ./mychain/data/ --port 30303 --nodiscover --rpcapi db,eth,net,web3,personal --networkid 1998 console
+miner.start()
+node deploy.js

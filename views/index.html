@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="/js/web3.min.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <p id = "hello_world"></p>
+  </body>
+
+  <script type="text/javascript">
+    web3Provider = new Web3.providers.HttpProvider('http://localhost:8080');
+    web3 = new Web3(web3Provider);
+    //give ABI(application binary interface to web3)
+    $.getJSON("helloWorld.abi", function(contract_abi) {
+      helloWorld = web3.eth.contract(contract_abi)
+
+      // Connect provider to interact with contract
+      instance = helloWorld.at("0x6406fab59d19b488cfbdfb68cd6e3ec21e9d1fd8");
+      console.log("my methods : ",instance);
+      // this instance variable is the key variable to access anything in your smart contract
+      //you can access any method as follows
+      instance.renderHelloWorld.call(function(err,val){
+        if(err){
+          console.log(err);
+        }
+        console.log(val);
+        document.getElementById('hello_world').innerHTML = val;
+      })
+    })
+
+    //this is the basic way to access smart contract you can use it how ever you want
+  </script>
+</html>
